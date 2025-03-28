@@ -100,9 +100,9 @@ export default function Home() {
   };
 
   const getProgressColor = (progress) => {
-    if (progress < 30) return "bg-red-500";
-    if (progress < 70) return "bg-yellow-500";
-    return "bg-green-500";
+    if (progress < 30) return "bg-red-500 dark:bg-red-600";
+    if (progress < 70) return "bg-yellow-500 dark:bg-yellow-600";
+    return "bg-green-500 dark:bg-green-600";
   };
 
   const groupedTasks = tasks.reduce((groups, task) => {
@@ -114,7 +114,7 @@ export default function Home() {
   }, {});
 
   return (
-    <div className="min-h-screen p-4 md:p-8 max-w-2xl mx-auto bg-gray-50">
+    <div className="min-h-screen p-4 md:p-8 max-w-2xl mx-auto bg-gray-50 dark:bg-gray-900">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -154,17 +154,19 @@ export default function Home() {
           >
             <div className="mb-8">
               <div className="flex justify-between mb-2">
-                <span className="text-sm font-semibold">Progress</span>
+                <span className="text-sm font-semibold dark:text-gray-200">
+                  Progress
+                </span>
                 <motion.span
                   key={progress}
                   initial={{ scale: 0.5 }}
                   animate={{ scale: 1 }}
-                  className="text-sm font-semibold"
+                  className="text-sm font-semibold dark:text-gray-200"
                 >
                   {Math.round(progress)}%
                 </motion.span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-inner">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden shadow-inner">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
@@ -181,7 +183,7 @@ export default function Home() {
                   type="text"
                   value={newTask}
                   onChange={(e) => setNewTask(e.target.value)}
-                  className="flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none transition-all"
+                  className="flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none transition-all dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:placeholder-gray-400"
                   placeholder="Add a new task..."
                 />
                 <motion.button
@@ -203,10 +205,10 @@ export default function Home() {
                     key={date}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white p-4 rounded-lg shadow-md"
+                    className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md"
                   >
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 gap-2">
-                      <h2 className="text-xl font-semibold">
+                      <h2 className="text-xl font-semibold dark:text-gray-200">
                         {new Date(date).toLocaleDateString("en-US", {
                           weekday: "long",
                           year: "numeric",
@@ -229,20 +231,20 @@ export default function Home() {
                           key={task.id}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
-                          className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm hover:shadow transition-shadow"
+                          className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow transition-shadow"
                         >
                           <div className="flex items-center gap-3">
                             <input
                               type="checkbox"
                               checked={task.completed}
                               onChange={() => toggleTask(task.id)}
-                              className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              className="h-5 w-5 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:bg-gray-700"
                             />
                             <span
                               className={
                                 task.completed
-                                  ? "line-through text-gray-500"
-                                  : ""
+                                  ? "line-through text-gray-500 dark:text-gray-400"
+                                  : "dark:text-gray-200"
                               }
                             >
                               {task.text}
@@ -252,14 +254,14 @@ export default function Home() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => deleteTask(task.id)}
-                            className="px-3 py-1 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                            className="px-3 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                           >
                             Delete
                           </motion.button>
                         </motion.div>
                       ))}
                     </div>
-                    <div className="mt-3 text-sm text-gray-500">
+                    <div className="mt-3 text-sm text-gray-500 dark:text-gray-400">
                       {dateTasks.filter((task) => task.completed).length} of{" "}
                       {dateTasks.length} tasks completed
                     </div>
@@ -276,17 +278,19 @@ export default function Home() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <h2 className="text-2xl font-semibold mb-4">Archived Summaries</h2>
+            <h2 className="text-2xl font-semibold mb-4 dark:text-gray-200">
+              Archived Summaries
+            </h2>
             {archivedSummaries.map((summary, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="border rounded-lg p-4 bg-white shadow-md hover:shadow-lg transition-shadow"
+                className="border dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow"
               >
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2 gap-2">
-                  <h3 className="text-lg font-semibold">
+                  <h3 className="text-lg font-semibold dark:text-gray-200">
                     {new Date(summary.date).toLocaleDateString("en-US", {
                       weekday: "long",
                       year: "numeric",
@@ -295,20 +299,20 @@ export default function Home() {
                     })}
                   </h3>
                   <div className="flex items-center gap-2 w-full md:w-auto">
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
                       Saved: {new Date(summary.savedAt).toLocaleString()}
                     </span>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => deleteArchivedSummary(index)}
-                      className="px-3 py-1 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                      className="px-3 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                     >
                       Delete
                     </motion.button>
                   </div>
                 </div>
-                <div className="text-sm text-gray-600 space-y-1">
+                <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                   <p>Total Tasks: {summary.totalTasks}</p>
                   <p>Completed Tasks: {summary.completedTasks}</p>
                   <p>
@@ -320,13 +324,17 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="mt-3">
-                  <h4 className="font-semibold mb-2">Tasks:</h4>
+                  <h4 className="font-semibold mb-2 dark:text-gray-200">
+                    Tasks:
+                  </h4>
                   <ul className="list-disc list-inside space-y-1">
                     {summary.tasks.map((task, i) => (
                       <li
                         key={i}
                         className={
-                          task.completed ? "text-gray-500 line-through" : ""
+                          task.completed
+                            ? "text-gray-500 dark:text-gray-400 line-through"
+                            : "dark:text-gray-300"
                         }
                       >
                         {task.text}
